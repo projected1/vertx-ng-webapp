@@ -1,22 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { environment } from '../environments/environment';
+import * as EventBus from 'vertx3-eventbus-client';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  counter: 0;
+export class AppComponent implements OnInit {
+  clickCount: number;
 
-  constructor(private http: Http) {
-    setInterval(() => { this.updateCounter(); }, 1000);
+  constructor(private http: Http) {}
+
+  ngOnInit() {
+    this.initCounter();
+    this.monitorCounter();
   }
 
-  updateCounter() {
-    this.http.get('http://18.221.177.61:8080/api/clicks/get-count')
-      .subscribe((res: Response) => {
-        this.counter = res.json().clickCount;
-    });
+  initCounter() {
+    this.http.get(environment.baseUrl + '/api/clicks')
+      .subscribe((res: Response) => this.clickCount = res.json().clickCount);
+  }
+
+  monitorCounter() {
+    let eventBus = new EventBus(environment.baseUrl + "/eventbus");
+    eventBus.onopen = () => eventBus.registerHandler(
+      "counter-feed",
+      (err, msg) => this.clickCount = JSON.parse(msg.body).clickCount);
   }
 }
