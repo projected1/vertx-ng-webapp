@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('vala-demo-ng App', () => {
+describe('vertx-ng-demo App', () => {
   let page: AppPage;
 
   beforeEach(() => {

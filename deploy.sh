@@ -1,8 +1,8 @@
 #!/bin/bash
 
-key='../../keys/vala-demo-aws.pem'
+key='../../keys/vertx-demo-aws.pem'
 svr='ubuntu@18.221.177.61'
-target_dir='/home/ubuntu/vala-demo-ng'
+target_dir='/home/ubuntu/vertx-ng-demo'
 
 ng build --prod
 chmod 400 $key

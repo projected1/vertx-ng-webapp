@@ -1,4 +1,4 @@
-# ValaDemoNg
+# Vertx - Angular Webapp Demo
 
 ![Clients Snapshot](clients-snapshot.jpg?raw=true "Clients Snapshot")
 
